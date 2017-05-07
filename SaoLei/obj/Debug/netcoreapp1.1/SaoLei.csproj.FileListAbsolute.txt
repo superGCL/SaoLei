@@ -1,0 +1,9 @@
+D:\Git\SaoLei\SaoLei\bin\Debug\netcoreapp1.1\SaoLei.deps.json
+D:\Git\SaoLei\SaoLei\bin\Debug\netcoreapp1.1\SaoLei.runtimeconfig.json
+D:\Git\SaoLei\SaoLei\bin\Debug\netcoreapp1.1\SaoLei.runtimeconfig.dev.json
+D:\Git\SaoLei\SaoLei\obj\Debug\netcoreapp1.1\SaoLei.AssemblyInfo.cs
+D:\Git\SaoLei\SaoLei\bin\Debug\netcoreapp1.1\SaoLei.dll
+D:\Git\SaoLei\SaoLei\bin\Debug\netcoreapp1.1\SaoLei.pdb
+D:\Git\SaoLei\SaoLei\obj\Debug\netcoreapp1.1\SaoLei.dll
+D:\Git\SaoLei\SaoLei\obj\Debug\netcoreapp1.1\SaoLei.pdb
+D:\Git\SaoLei\SaoLei\obj\Debug\netcoreapp1.1\SaoLei.csprojResolveAssemblyReference.cache
