@@ -16,13 +16,13 @@ namespace SaoLei
         /// </summary>
         public int status { private set; get; }
 
-        public void Init(int width=12, int height = 12, int number = 9)
+        public void Init(int width = 12, int height = 12, int number = 9)
         {
             this.width = width;
             this.height = height;
             this.mineNumber = number;
             this.status = 0;
-            direction = new int[3]{ 0,1,-1};
+            direction = new int[3] { 0, 1, -1 };
 
             map = new int[height, width];
         }
@@ -30,21 +30,21 @@ namespace SaoLei
         public void start()
         {
             //初始化地图
-            for(int i=0;i<height;i++)
+            for (int i = 0; i < height; i++)
             {
-                for(int j=0;j<width;j++)
+                for (int j = 0; j < width; j++)
                 {
-                    map[i,j] = -1;
+                    map[i, j] = -1;
                 }
             }
 
             //初始化地雷
             Random rand = new Random();
-            for(int i=0;i<mineNumber;)
+            for (int i = 0; i < mineNumber;)
             {
                 int row = rand.Next(height - 2) + 1;
                 int col = rand.Next(width - 2) + 1;
-                if(map[row, col] != -2)
+                if (map[row, col] != -2)
                 {
                     map[row, col] = -2;//-2代表地雷
                     i++;
@@ -55,18 +55,19 @@ namespace SaoLei
         /// <summary>
         /// 输出地图
         /// </summary>
-        public void show(bool showAll=false)
+        /// <param name="showAll">显示地雷，若为true，则显示所有的地雷</param>
+        public void show(bool showAll = false)
         {
             //输出头部信息
             Console.Write("   |");
-            for(int i=1;i<width-1;i++)
+            for (int i = 1; i < width - 1; i++)
             {
                 Console.Write("{0,2} ", i);
             }
             Console.WriteLine("\n---|-------------------------------->col");
 
             //输出地图信息
-            if(showAll)
+            if (showAll)
             {
                 for (int row = 1; row < height - 1; row++)
                 {
@@ -96,7 +97,7 @@ namespace SaoLei
                     Console.Write("{0,2} |", row);
                     for (int col = 1; col < width - 1; col++)
                     {
-                        if(map[row, col] == -1 || map[row, col] == -2)
+                        if (map[row, col] == -1 || map[row, col] == -2)
                         {
                             Console.Write("{0,2} ", "#");
                         }
@@ -124,11 +125,11 @@ namespace SaoLei
         public int calculate(int row, int col)
         {
             int counter = 0;
-            for(int i=0;i<3;i++)
+            for (int i = 0; i < 3; i++)
             {
-                for(int j=0;j<3;j++)
+                for (int j = 0; j < 3; j++)
                 {
-                    if(map[row+direction[i],col+direction[j]] == -2)
+                    if (map[row + direction[i], col + direction[j]] == -2)
                     {
                         counter++;
                     }
@@ -149,7 +150,7 @@ namespace SaoLei
             if (row <= 0 || row > (height - 2) || col <= 0 || col > (width - 2)) return;
 
             //如果当前位置是-2（雷），则游戏结束
-            if(map[row, col] == -2)
+            if (map[row, col] == -2)
             {
                 status = 2;//游戏结束
                 Console.WriteLine("You lose!");
@@ -163,13 +164,13 @@ namespace SaoLei
                 //首先设置当前位置为0
                 map[row, col] = 0;
 
-                for(int i = 0;i<3;i++)
+                for (int i = 0; i < 3; i++)
                 {
-                    for(int j=0;j<3;j++)
+                    for (int j = 0; j < 3; j++)
                     {
-                        if(row+direction[i] <= (height-2) && col+direction[j] <= (width-2) && row+direction[i] >=1 && col+direction[j] >= 1 && //定义边界
+                        if (row + direction[i] <= (height - 2) && col + direction[j] <= (width - 2) && row + direction[i] >= 1 && col + direction[j] >= 1 && //定义边界
                            !(direction[i] == 0 && direction[j] == 0) && //两个方向不能同时为0，否则会递归调用自身
-                           map[row+direction[i], col+direction[j]] == -1 //保证不能返回调用
+                           map[row + direction[i], col + direction[j]] == -1 //保证不能返回调用
                             )
                         {
                             click(row + direction[i], col + direction[j]);
@@ -183,7 +184,7 @@ namespace SaoLei
             }
 
             //检查游戏是否结束
-            if(isOver() == true)
+            if (isWin() == true)
             {
                 Console.WriteLine("You Win!");
             }
@@ -195,13 +196,27 @@ namespace SaoLei
         /// <returns></returns>
         public bool isOver()
         {
+            return status == 2;
+        }
+
+        /// <summary>
+        /// 检查玩家是否已经赢了
+        /// </summary>
+        /// <returns></returns>
+        private bool isWin()
+        {
+            /*
+             * 所有的位置都已经被点击过了，就认为玩家赢了 
+             * 
+             */
+
             int count = 0;
 
-            for(int row =1;row < height -1; row++)
+            for (int row = 1; row < height - 1; row++)
             {
-                for(int col = 1; col < width - 1; col++)
+                for (int col = 1; col < width - 1; col++)
                 {
-                    if(map[row,col] == -1)
+                    if (map[row, col] == -1)
                     {
                         count++;
                     }
